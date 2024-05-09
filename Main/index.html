@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html ng-app="movieTicketApp">
+<head>
+  <title>Movie Ticket Booking</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body ng-controller="MovieTicketController">
+  <div class="container">
+    <div class="movie-screen">{{ selectedMovie.title }}</div>
+    <div class="navbar">
+      <button ng-repeat="movie in movies" ng-click="selectMovie(movie)"
+              ng-class="{ 'active': movie === selectedMovie }">
+        {{ movie.title }}
+      </button>
+    </div>
+    <div class="seat-layout">
+      <div class="seat-row" ng-repeat="row in seatLayout track by $index">
+        <div class="seat" ng-repeat="seat in row track by $index"
+             ng-class="{ 'selected': seat.selected, 'unavailable': seat.unavailable }"
+             ng-click="toggleSeat(seat)">
+          {{ seat.label }}
+        </div>
+      </div>
+    </div>
+    <div class="legend">
+      <div>
+        <div class="color-box available"></div>
+        Available
+      </div>
+      <div>
+        <div class="color-box selected"></div>
+        Selected
+      </div>
+      <div>
+        <div class="color-box unavailable"></div>
+        Unavailable
+      </div>
+    </div>
+    <div class="total-price">
+      Total Price: ₹{{ totalPrice }}
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
